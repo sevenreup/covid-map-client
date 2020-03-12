@@ -1,18 +1,22 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div >
+    <MapBox :token="accessToken" />
   </div>
 </template>
-
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import MapBox from "../components/mapper/MapBox";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
+    MapBox
+  },
+  props: {},
+  data: () => ({}),
+  computed: {
+    accessToken() {
+      return process.env.VUE_APP_TOKEN;
+    }
   }
-}
+};
 </script>
