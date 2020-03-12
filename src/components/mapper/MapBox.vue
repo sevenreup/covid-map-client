@@ -15,7 +15,8 @@ export default {
     mapstyle: {
       type: String,
       default: null
-    }
+    },
+    layers: Array
   },
   data: () => ({
     map: null,
