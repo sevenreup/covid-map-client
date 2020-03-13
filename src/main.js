@@ -7,7 +7,7 @@ import './styles/global.scss'
 import 'vuetify/dist/vuetify.min.css';
 
 import Vuetify from 'vuetify';
-import '@mdi/font/css/materialdesignicons.css';
+import '@mdi/font/css/materialdesignicons.css'
 
 Vue.use(Vuetify);
 
@@ -18,7 +18,7 @@ new Vue({
   store,
   vuetify: new Vuetify({
     icons: {
-      iconfont: 'mdi',
+      iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
     }
   }),
   render: h => h(App)
