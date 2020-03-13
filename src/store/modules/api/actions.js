@@ -16,5 +16,9 @@ export default {
             commit(types.SET_LAYER_LOADING, false);
             console.error(err);
         }
+    },
+
+    getActiveLayers: async ({ state }) => {
+        return state.layers;
     }
 }

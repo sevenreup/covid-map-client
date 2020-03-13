@@ -18,7 +18,7 @@ export default {
       type: String,
       default: null
     },
-    layers: Array
+    layers: null
   },
   data: () => ({
     map: null,
@@ -96,8 +96,8 @@ export default {
   background: #e5e9ec;
   overflow: hidden;
 }
-#deck-canvas {
-  position: absolute;
+#deckgl-overlay {
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;

@@ -1,25 +1,10 @@
 <template>
   <div class="sidebar">
-    <!-- <v-fab-transition>
-      <v-btn color="pink" dark fab @click="hidden = !hidden">
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
-    </v-fab-transition>
-    <v-navigation-drawer floating permanent v-show="hidden">
-      <v-list dense rounded>
-        <v-list-item v-for="item in items" :key="item.title" link>
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>-->
-    
+    <v-btn class="btn-f btn-left" fab :right="true" :top="true" @click="openBtm">
+      <v-icon>account_circle</v-icon>
+    </v-btn>
     <v-speed-dial
+      class="btn-f"
       v-model="fab"
       :top="true"
       :left="true"
@@ -52,14 +37,34 @@ export default {
     fab: false,
     direction: "bottom",
     transition: "slide-y-reverse-transition"
-  })
+  }),
+  methods: {
+    openBtm() {
+      this.$emit('toggle');
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-.sidebar {
+
+$break-small: 425px;
+$break-medium: 800px;
+$break-large: 1200px;
+
+.btn-f {
   position: absolute;
   z-index: 100000;
+}
+.btn-left {
+  top: 16px;
+  left: 92%;
+  @media screen and (max-width: $break-small) {
+    left: 80%;
+  }
+  @media screen and (min-width: $break-medium) {
+    left: 88%;
+  }
 }
 .v-fade {
   display: inherit !important; /* override v-show display: none */

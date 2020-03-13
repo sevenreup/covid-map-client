@@ -1,6 +1,6 @@
 export default function init() {
     return {
-        layers: {},
+        layers: new Object(),
         isLayersLoading: true,
         isDataLoading: false,
     }
