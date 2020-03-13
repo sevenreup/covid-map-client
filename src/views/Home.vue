@@ -11,10 +11,11 @@ import MapBox from "../components/mapper/MapBox";
 import Sidebar from "../components/widgets/Sidebar";
 import { mapActions } from "vuex";
 
+
 export default {
   name: "Home",
   components: {
-    MapBox,
+   MapBox,
     Sidebar
   },
   props: {},
@@ -31,7 +32,7 @@ export default {
     this.fetchLayers();
   },
   methods: {
-    ...mapActions("api", ["fetchLayers"]),
+    ...mapActions('api', ['fetchLayers']),
     async getLayers() {}
   }
 };
