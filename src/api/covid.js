@@ -1,7 +1,7 @@
 import { covidapi } from './util/request';
 
 const fetchLayers = () => {
-    return covidapi.get(`/try`);
+    return covidapi.get(`/all`);
 }
 
 export { fetchLayers }

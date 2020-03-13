@@ -1,17 +1,21 @@
 <template>
-  <div>
-    <MapBox :token="accessToken" :layers="layers" />
+  <div class="screen-container">
+    <div class="screen-section">
+      <MapBox :token="accessToken" :layers="layers" />
+      <Sidebar />
+    </div>
   </div>
 </template>
 <script>
 import MapBox from "../components/mapper/MapBox";
+import Sidebar from "../components/widgets/Sidebar";
 import { mapActions } from "vuex";
-
 
 export default {
   name: "Home",
   components: {
-    MapBox
+    MapBox,
+    Sidebar
   },
   props: {},
   data: () => ({
@@ -27,8 +31,22 @@ export default {
     this.fetchLayers();
   },
   methods: {
-    ...mapActions('api', ['fetchLayers']),
+    ...mapActions("api", ["fetchLayers"]),
     async getLayers() {}
   }
 };
 </script>
+<style lang="scss" scoped>
+.screen-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .screen-section {
+    display: flex;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+}
+</style>
