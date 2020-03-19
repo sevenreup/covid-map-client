@@ -1,7 +1,11 @@
 import { covidapi } from './util/request';
 
 const fetchLayers = () => {
-    return covidapi.get(`/all`);
+    return covidapi.get(`/layers?ts=${new Date().getTime()}`);
 }
 
-export { fetchLayers }
+const fetchGeoJSONLayer = () => {
+    return covidapi.get(`/all?ts=${new Date().getTime()}`);
+}
+
+export { fetchLayers, fetchGeoJSONLayer }

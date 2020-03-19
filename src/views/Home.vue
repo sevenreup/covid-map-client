@@ -2,7 +2,7 @@
   <div class="screen-container">
     <div class="screen-section">
       <MapBox :token="accessToken" :layers="layers" />
-      <Sidebar @toggle="bsheet = !bsheet" />
+      <Sidebar @toggle="bsheet = !bsheet" :layers="getLayers" />
       <Settings v-model="bsheet" />
     </div>
   </div>
@@ -32,8 +32,8 @@ export default {
     }
   },
   async mounted() {
-    console.log(this.$store);
-    this.layers = await this.fetchLayers();
+    await this.fetchGeoJson();
+    this.fetchLayers();
   },
   watch: {
     getLayers() {
@@ -41,9 +41,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions("api", ["fetchLayers", "getActiveLayers",]),
+    ...mapActions("api", ["fetchLayers", "fetchGeoJson", "getActiveGeoLayer"]),
     async loadLayers() {
-      this.layers = await this.getActiveLayers();
+      console.log("loading");
+      this.layers = await this.getActiveGeoLayer();
+      console.log(this.layers + " con");
     }
   }
 };

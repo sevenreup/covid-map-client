@@ -16,12 +16,17 @@
         <v-icon>account_circle</v-icon>
         <v-icon>close</v-icon>
       </v-btn>
-      <v-list>
-        <v-list-item v-for="item in items" :key="item.title">
-          <v-list-item-avatar>
-            <v-icon>chat_bubble</v-icon>
-          </v-list-item-avatar>
-        </v-list-item>
+      <v-list rounded>
+        <v-list-item-group v-model="sitem" color="primary">
+          <v-list-item v-for="item in items" :key="item.title">
+            <v-list-item-avatar>
+              <v-icon v-text="item.icon"></v-icon>
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
       </v-list>
     </v-speed-dial>
   </div>
@@ -30,24 +35,31 @@
 export default {
   data: () => ({
     items: [
-      { title: "Home", icon: "dashboard" },
-      { title: "About", icon: "question_answer" }
+      { title: "Confirmed", icon: "chat_bubble", layer: "confirmed" },
+      { title: "Recovered", icon: "question_answer", layer: "recovered" },
+      { title: "Deaths", icon: "question_answer", layer: "deaths" }
     ],
     hidden: true,
     fab: false,
     direction: "bottom",
-    transition: "slide-y-reverse-transition"
-  }),
+    transition: "slide-y-reverse-transition",
+    sitem: null
+  }), 
+  props: {
+    layers: Object
+  },
   methods: {
     openBtm() {
-      this.$emit('toggle');
+      this.$emit("toggle");
+    },
+    layerSwitch(layer) {
+      console.log(layer);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-
 $break-small: 425px;
 $break-medium: 800px;
 $break-large: 1200px;
