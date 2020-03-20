@@ -86,7 +86,6 @@ export default {
             console.log('stuff');
 
         } else {
-            console.log('geo start, ' + state.activeLayer + ", " + state.geojsonData);
 
             if (state.activeLayer && state.geojsonData) {
                 console.log('geo inside');
@@ -140,6 +139,14 @@ export default {
                     }
                 });
             }
+        }
+    },
+    setActiveLayer: async ({ state, commit }, layerID) => {
+        console.log(layerID);
+        if (state.activeLayer !== layerID) {
+            commit(types.SET_ACTIVE_LAYER, layerID)
+        } else {
+            return;
         }
     }
 }

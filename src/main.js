@@ -6,10 +6,12 @@ import store from './store'
 import './styles/global.scss'
 import 'vuetify/dist/vuetify.min.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import Transitions from 'vue2-transitions'
 import Vuetify from 'vuetify';
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 Vue.use(Vuetify);
+Vue.use(Transitions);
 
 Vue.config.productionTip = false
 

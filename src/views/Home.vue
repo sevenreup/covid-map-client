@@ -1,7 +1,7 @@
 <template>
   <div class="screen-container">
     <div class="screen-section">
-      <MapBox :token="accessToken" :layers="layers" />
+      <MapBox :token="accessToken" :layers="geolayers" />
       <Sidebar @toggle="bsheet = !bsheet" :layers="getLayers" />
       <Settings v-model="bsheet" />
     </div>
@@ -22,7 +22,7 @@ export default {
   },
   props: {},
   data: () => ({
-    layers: [],
+    geolayers: [],
     bsheet: false
   }),
   computed: {
@@ -43,9 +43,7 @@ export default {
   methods: {
     ...mapActions("api", ["fetchLayers", "fetchGeoJson", "getActiveGeoLayer"]),
     async loadLayers() {
-      console.log("loading");
-      this.layers = await this.getActiveGeoLayer();
-      console.log(this.layers + " con");
+      this.geolayers = await this.getActiveGeoLayer();
     }
   }
 };

@@ -44,8 +44,6 @@ export default {
   },
   methods: {
     setupMapBox() {
-      console.log(this.mapstyle);
-      console.log(this.token);
       this.map = new mapboxgl.Map({
         accessToken: this.token,
         container: this.$refs.map,

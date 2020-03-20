@@ -1,91 +1,76 @@
 <template>
   <div class="sidebar">
-    <v-btn class="btn-f btn-left" fab :right="true" :top="true" @click="openBtm">
-      <v-icon>account_circle</v-icon>
-    </v-btn>
-    <v-speed-dial
-      class="btn-f"
-      v-model="fab"
-      :top="true"
-      :left="true"
-      :direction="direction"
-      :open-on-hover="true"
-      :transition="transition"
-    >
-      <v-btn slot="activator" color="blue darken-2" dark fab hover v-model="fab">
-        <v-icon>account_circle</v-icon>
-        <v-icon>close</v-icon>
-      </v-btn>
-      <v-list rounded>
-        <v-list-item-group v-model="sitem" color="primary">
-          <v-list-item v-for="item in items" :key="item.title">
-            <v-list-item-avatar>
-              <v-icon v-text="item.icon"></v-icon>
-            </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title v-text="item.title"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-speed-dial>
+    <template>
+      <FadeTransition>
+        <v-btn fab @click="menu = !menu" v-show="!menu">
+          <v-icon>layers</v-icon>
+        </v-btn>
+      </FadeTransition>
+      <CollapseTransition>
+        <v-card v-show="menu">
+          <v-list>
+            <v-subheader>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Layers</v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-action @click="menu = false">
+                  <v-icon>close</v-icon>
+                </v-list-item-action>
+              </v-list-item>
+            </v-subheader>
+            <v-list-item v-for="layer in layers" :key="layer.id" @click="setActiveLayer(layer.id)">
+              <v-list-item-avatar>
+                <v-icon v-if="layer.isActive">visibility</v-icon>
+                <v-icon v-else>visibility_off</v-icon>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-row>
+                  <v-col>
+                    <h4>{{ layer.name }}</h4>
+                  </v-col>
+                  <v-col>
+                    <p>{{ layer.value }}</p>
+                  </v-col>
+                </v-row>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-card>
+      </CollapseTransition>
+    </template>
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
+import { CollapseTransition } from "vue2-transitions";
+import { FadeTransition } from "vue2-transitions";
+
 export default {
+  components: {
+    CollapseTransition,
+    FadeTransition
+  },
   data: () => ({
-    items: [
-      { title: "Confirmed", icon: "chat_bubble", layer: "confirmed" },
-      { title: "Recovered", icon: "question_answer", layer: "recovered" },
-      { title: "Deaths", icon: "question_answer", layer: "deaths" }
-    ],
-    hidden: true,
-    fab: false,
+    menu: false,
     direction: "bottom",
     transition: "slide-y-reverse-transition",
     sitem: null
-  }), 
+  }),
   props: {
-    layers: Object
+    layers: Array
   },
   methods: {
-    openBtm() {
-      this.$emit("toggle");
-    },
-    layerSwitch(layer) {
-      console.log(layer);
-    }
+    ...mapActions("api", ["setActiveLayer"]),
+    togglerControl() {}
   }
 };
 </script>
 
 <style lang="scss" scoped>
-$break-small: 425px;
-$break-medium: 800px;
-$break-large: 1200px;
-
-.btn-f {
+.sidebar {
   position: absolute;
-  z-index: 100000;
-}
-.btn-left {
-  top: 16px;
-  left: 92%;
-  @media screen and (max-width: $break-small) {
-    left: 80%;
-  }
-  @media screen and (min-width: $break-medium) {
-    left: 88%;
-  }
-}
-.v-fade {
-  display: inherit !important; /* override v-show display: none */
-  transition: opacity 0.5s;
-}
-
-.v-fade[style*="display: none;"] {
-  opacity: 0;
-  pointer-events: none; /* disable user interaction */
-  user-select: none; /* disable user selection */
+  top: 12px;
+  left: 12px;
 }
 </style>
