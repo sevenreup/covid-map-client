@@ -8,6 +8,7 @@ node_modules
 
 # development env files
 .env.production
+.env.development
 .env
 
 # Log files
