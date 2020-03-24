@@ -8,4 +8,15 @@ export default {
     getActiveLayer: state => {
         return state.activeLayer;
     },
+    getVisualizations: state => {
+        return state.visualizations.map(item => {
+            return {
+                ...item,
+                isActive: item.id === state.activeVisualization
+            };
+        });
+    },
+    getPopupData: state => {
+        return state.popupData;
+    },
 }

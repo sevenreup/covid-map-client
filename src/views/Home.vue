@@ -3,7 +3,8 @@
     <div class="screen-section">
       <MapBox :token="accessToken" :layers="geolayers" />
       <Sidebar @toggle="bsheet = !bsheet" :layers="getLayers" />
-      <Settings v-model="bsheet" />
+      <Settings :visuals="getVisualizations" />
+      <Pop />
     </div>
   </div>
 </template>
@@ -11,6 +12,7 @@
 import MapBox from "../components/mapper/MapBox";
 import Sidebar from "../components/widgets/Sidebar";
 import Settings from "../components/widgets/Settings";
+import Pop from "../components/mapper/Pop";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -18,30 +20,34 @@ export default {
   components: {
     MapBox,
     Sidebar,
-    Settings
+    Settings,
+    Pop
   },
   props: {},
   data: () => ({
-    geolayers: [],
-    bsheet: false
+    geolayers: []
   }),
   computed: {
-    ...mapGetters("api", ["getLayers"]),
+    ...mapGetters("api", ["getLayers", "getVisualizations"]),
     accessToken() {
       return process.env.VUE_APP_TOKEN;
     }
   },
   async mounted() {
     await this.fetchGeoJson();
+    this.fetchScatterplot();
     this.fetchLayers();
   },
   watch: {
     getLayers() {
       this.loadLayers();
+    },
+    getVisualizations() {
+      this.loadLayers();
     }
   },
   methods: {
-    ...mapActions("api", ["fetchLayers", "fetchGeoJson", "getActiveGeoLayer"]),
+    ...mapActions("api", ["fetchLayers", "fetchGeoJson", "fetchScatterplot", "getActiveGeoLayer"]),
     async loadLayers() {
       this.geolayers = await this.getActiveGeoLayer();
     }

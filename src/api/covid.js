@@ -8,4 +8,7 @@ const fetchGeoJSONLayer = () => {
     return covidapi.get(`/all?ts=${new Date().getTime()}`);
 }
 
-export { fetchLayers, fetchGeoJSONLayer }
+const fetchScatterLayer = () => {
+    return covidapi.get(`scatterplot?ts=${new Date().getTime()}`);
+}
+export { fetchLayers, fetchGeoJSONLayer, fetchScatterLayer }
