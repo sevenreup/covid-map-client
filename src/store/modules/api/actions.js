@@ -30,6 +30,7 @@ export default {
     },
     fetchGeoJson: async ({ commit }) => {
         try {
+            commit(types.SET_DATA_LOADING, true);
             const response = await fetchGeoJSONLayer();
             const { status, data } = response;
             if (status === 200 && data) {
@@ -77,13 +78,16 @@ export default {
                     };
                 });
                 commit(types.SET_GEO_JSON_DATA, coloredData);
+                commit(types.SET_DATA_LOADING, false);
             }
         } catch (error) {
+            commit(types.SET_DATA_LOADING, false);
             console.error(error);
         }
     },
     fetchScatterplot: async ({ commit }) => {
         try {
+            commit(types.SET_DATA_LOADING, true);
             const response = await fetchScatterLayer();
             const { status, data } = response;
             if (status === 200 && data) {
@@ -122,11 +126,12 @@ export default {
                 console.log('done ');
 
                 commit(types.SET_SCATTER_PLOT_DATA, coloredData);
+                commit(types.SET_DATA_LOADING, false);
             }
         }
         catch (error) {
             console.log(error);
-
+            commit(types.SET_DATA_LOADING, false);
         }
     },
     setActiveLayer: async ({ state, commit }, layerID) => {

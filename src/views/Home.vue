@@ -1,6 +1,9 @@
 <template>
   <div class="screen-container">
     <div class="screen-section">
+      <div class="loading" v-show="isDataLoading">
+        <v-progress-circular :size="100" indeterminate color="purple"></v-progress-circular>
+      </div>
       <MapBox :token="accessToken" :layers="geolayers" />
       <Sidebar @toggle="bsheet = !bsheet" :layers="getLayers" />
       <Settings :visuals="getVisualizations" />
@@ -28,14 +31,14 @@ export default {
     geolayers: []
   }),
   computed: {
-    ...mapGetters("api", ["getLayers", "getVisualizations"]),
+    ...mapGetters("api", ["getLayers", "getVisualizations", "isDataLoading"]),
     accessToken() {
       return process.env.VUE_APP_TOKEN;
     }
   },
   async mounted() {
     await this.fetchGeoJson();
-    this.fetchScatterplot();
+    await this.fetchScatterplot();
     this.fetchLayers();
   },
   watch: {
@@ -47,7 +50,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions("api", ["fetchLayers", "fetchGeoJson", "fetchScatterplot", "getActiveGeoLayer"]),
+    ...mapActions("api", [
+      "fetchLayers",
+      "fetchGeoJson",
+      "fetchScatterplot",
+      "getActiveGeoLayer"
+    ]),
     async loadLayers() {
       this.geolayers = await this.getActiveGeoLayer();
     }
@@ -65,6 +73,12 @@ export default {
     height: 100%;
     position: relative;
     overflow: hidden;
+  }
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 9999;
   }
 }
 </style>

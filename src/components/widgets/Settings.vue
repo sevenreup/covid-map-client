@@ -63,18 +63,18 @@ export default {
   flex-direction: row;
   align-items: center;
   padding: 10px;
-  background-color: var(--color-primary);
+  // background-color: var(--color-primary);
   border-left: 3px solid transparent;
   border-bottom: 1px solid var(--border-color);
 
   i {
     padding: 10px;
-    background-color: var(--color-primary-light);
     border-radius: 5px;
     margin-right: 10px;
   }
 
   &.active {
+    background-color: #78ced8;
     color: var(--color-accent);
     border-left: 3px solid var(--color-accent);
   }
@@ -84,8 +84,11 @@ export default {
     border-bottom: 0;
   }
   &:hover {
+    i {
+      background-color: var(--color-accent);
+    }
     cursor: pointer;
-    background: var(--color-primary-light);
+    background: #def1f4;
   }
 }
 </style>

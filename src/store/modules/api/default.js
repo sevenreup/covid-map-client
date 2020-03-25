@@ -20,6 +20,18 @@ export default function init() {
                 icon: "streetview"
             }
         ],
+        sources: [
+            {
+                id: "jhucss",
+                name: "Johns Hopkins CSSE",
+                icon: ""
+            },
+            {
+                id: "worldmeter",
+                name: "World Meter",
+                icon: ""
+            }
+        ],
         popupData: null
     }
 }

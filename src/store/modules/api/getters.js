@@ -8,6 +8,9 @@ export default {
     getActiveLayer: state => {
         return state.activeLayer;
     },
+    isDataLoading: state => {
+        return state.isDataLoading;
+    },
     getVisualizations: state => {
         return state.visualizations.map(item => {
             return {

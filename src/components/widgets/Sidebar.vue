@@ -19,9 +19,14 @@
                 </v-list-item-action>
               </v-list-item>
             </v-subheader>
-            <v-list-item v-for="layer in layers" :key="layer.id" @click="setActiveLayer(layer.id)">
+            <v-list-item
+              v-for="layer in layers"
+              :key="layer.id"
+              @click="setActiveLayer(layer.id)"
+              :class="['item', { active: layer.isActive }]"
+            >
               <v-list-item-avatar>
-                <v-icon v-if="layer.isActive">visibility</v-icon>
+                <v-icon class="visible" v-if="layer.isActive">visibility</v-icon>
                 <v-icon v-else>visibility_off</v-icon>
               </v-list-item-avatar>
               <v-list-item-content>
@@ -72,5 +77,13 @@ export default {
   position: absolute;
   top: 12px;
   left: 12px;
+}
+.item {
+  &.active {
+    border-left: 3px solid var(--color-accent);
+    .visible {
+      color: var(--color-accent);
+    }
+  }
 }
 </style>
